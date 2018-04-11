@@ -57,6 +57,7 @@ class Welcome extends CI_Controller {
 	{
 		$data['koordinator'] = $vs = $this->mvolunteer->getByVolunteerTelegramId($id);
 		$data['answer'] = $this->mvolunteer->getSurveyResultsByUser($id);
+		$data['jurnal'] = $this->mvolunteer->getJurnalById($id);
 		$this->load->view('detail', $data);
 	}
 

@@ -157,17 +157,17 @@
 
 
 						<?php
-							foreach($koordinator as $i):
+							foreach($jurnal as $i):
 							
-								$nama_koordinator=$i->KoordinatorName;
-								$lokasi_rptra=$i->KoordinatorLokasi;
-								$telegram = $i->KoordinatorTelegram;
+								$tanggal_jurnal=$i->JurnalTimeStamp;
+								$desc_jurnal=$i->JurnalDesc;
+								$telegram = $i->JurnalKoordinatorTelegram;
 							
 						?>
 
 						<div class="row">
-							<div class="col-md-6"><?php echo $nama_koordinator;?></div>
-							<div class="col-md-6"><?php echo $lokasi_rptra;?></div>
+							<div class="col-md-6"><?php echo $tanggal_jurnal;?></div>
+							<div class="col-md-6"><?php echo $desc_jurnal;?></div>
 						</div>
 
 						<?php endforeach;?>

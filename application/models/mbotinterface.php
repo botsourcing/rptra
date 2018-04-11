@@ -11,7 +11,7 @@
  *
  * @author Temmy Rustandi Hidayat
  */
-class Crud_order extends CI_Model
+class Mbotinterface extends CI_Model
 {
 
 	function __construct()

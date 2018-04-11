@@ -44,6 +44,24 @@ class Mvolunteer extends CI_Model
         }
 	}
 
+	function getJurnalById($id)
+	{
+		$this->db->select('*')
+					->from('jurnal')
+					->where('JurnalKoordinatorTelegram', $id);
+				 
+		$get = $this->db->get();
+		
+		if($get->num_rows() > 0)
+        {
+            return $get->result();
+        }
+        else
+        {
+            return 0;
+        }
+	}
+
 	function getSurveyResults($questionId)
 	{
 		$this->db->select('*')
