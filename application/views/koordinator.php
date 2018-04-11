@@ -63,7 +63,6 @@
 		-webkit-box-shadow: 0 0 8px #D0D0D0;
 	}
 	</style>
-	<script type="text/javascript" src="<?php echo base_url().'assets/plugins/chartjs/chart.min.js'?>"></script>
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -80,73 +79,42 @@
 		</div>
 	</nav>
 	<div class="container">
-		<h3>Detail Survey Koordinator</h3>
-		<br>
 		<div class="row">
-			<div class="col-md-6">
-				
-				<p><b>Mainan atau fasilitas apa saja yang dibutuhkan oleh RPTRA Anda untuk meningkatkan kepuasan pengguna dan keberlangsungan kegiatan?</b><p>
-				<p><i><?php echo $answer[0]->Answer; ?></i><p>
-
-				<br>
-				<p><b>Bagaimana kinerja keseluruhan PKK Mart?</b><p>
-				<p><i><?php echo $answer[1]->Answer; ?></i><p>
-
-				<br>
-				<p><b>Bagaimana untuk ketersediaan produk/barang di dalam PKK Mart?</b><p>
-				<p><i><?php echo $answer[2]->Answer; ?></i><p>
-
-				<br>
-				<p><b>Bagaimana ketertarikan pengunjung RPTRA terhadap PKK Mart?</b><p>
-				<p><i><?php echo $answer[3]->Answer; ?></i><p>
-
-				<br>
-				<p><b>Untuk kualitas pengelolaan operasional PKK Mart, bagaimana menurut Anda sebagai koordinator RPTRA?</b><p>
-				<p><i><?php echo $answer[4]->Answer; ?></i><p>
-
-				<br>
-				<p><b>Untuk kawasan RPTRA Anda, siapa saja sih yang paling banyak mengunjungi RPTRA?</b><p>
-				<p><i><?php echo $answer[5]->Answer; ?></i><p>
-
-				<br>
-				<p><b>Lebih banyak laki-laki atau perempuan?</b><p>
-				<p><i><?php echo $answer[6]->Answer; ?></i><p>
-
-				<br>
-				<p><b>Dari kalangan ekonomi sosial yang seperti apa yang sering mengunjungi RPTRA?</b><p>
-				<p><i><?php echo $answer[7]->Answer; ?></i><p>
-
-				<br>
-				<p><b>Apa saja 3 kegiatan yang paling sering dilakukan di RPTRA?</b><p>
-				<p><i><?php echo $answer[8]->Answer; ?></i><p>
-
-				<br>
-				<p><b>Lalu 3 kegiatan apa yang paling digemari pengunjung?</b><p>
-				<p><i><?php echo $answer[9]->Answer; ?></i><p>
-
-				<br>
-				<p><b>Menurut hasil survey RPTRA Anda (apabila ada) atau respon dari masyarakat, manfaat apa saja yang dirasakan dengan adanya RPTRA?</b><p>
-				<p><i><?php echo $answer[10]->Answer; ?></i><p>
-
-				<br>
-				<p><b>Seandainya pemberian dana untuk RPTRA dihentikan dan Anda tidak digaji oleh pemda DKI lagi, kira-kira hal apa saja yang akan Anda lakukan agar kegiatan operasional RPTRA tetap berjalan?</b><p>
-				<p><i><?php echo $answer[11]->Answer; ?></i><p>
-			</div>
 			<div class="col-md-6">
 				<div class="panel panel-default">
 				    <div class="panel-body">
-				    	<p><?php echo $koordinator[0]->KoordinatorName; ?></p>
-				    	<p><?php echo $koordinator[0]->KoordinatorLokasi; ?></p>
 
-				    	<div class="form-group">
-						  <label for="comment">Pesan:</label>
-						  <input id="tid" type="hidden" name="" value="<?php echo $koordinator[0]->KoordinatorTelegram; ?>">
-						  <textarea class="form-control" rows="5" id="comment"></textarea>
+						<div class="row">
+							<div class="col-md-4"><b>Nama Koordinator</b></div>
+							<div class="col-md-3"><b>Lokasi RPTRA</b></div>
+							<div class="col-md-3"></div>
+							<div class="col-md-3"><b>Aksi</b></div>
 						</div>
-				    	<button class="btn-success" onclick="myFunction()">Kirim</button>
-				    </div>
-				 </div>
-				 <div class="panel panel-default">
+						<br>
+
+
+						<?php
+							foreach($koordinator as $i):
+							
+								$nama_koordinator=$i->KoordinatorName;
+								$lokasi_rptra=$i->KoordinatorLokasi;
+								$telegram = $i->KoordinatorTelegram;
+							
+						?>
+
+						<div class="row">
+							<div class="col-md-4"><?php echo $nama_koordinator;?></div>
+							<div class="col-md-3"><?php echo $lokasi_rptra;?></div>
+							<div class="col-md-3"></div>
+							<div class="col-md-3"><?php echo "<a href='DetailAnswer/".$telegram."'>Detail</a>"; ?></div>
+						</div>
+
+						<?php endforeach;?>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="col-md-6">
+				<div class="panel panel-default">
 				    <div class="panel-body">
 
 						<div class="row">
@@ -173,8 +141,11 @@
 						<?php endforeach;?>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
+
+		
+
 		<div class="row">
 			<br>
 			<a href="<?php echo base_url().'index.php/Welcome/Home' ?>" class="btn btn-primary">Kembali ke Dashboard</a>
@@ -182,21 +153,6 @@
 		</div>
 	</div>
 </body>
-
-<script type="text/javascript">
-	function myFunction() {
-    var tid = document.getElementById("tid").value;
-    var msg = document.getElementById("comment").value;
-    $.get(
-	    "https://api.telegram.org/bot446261207:AAGrFMUEoNn__DLerHQa_I7UEeOi7e2wwA4/sendMessage",
-	    {chat_id : tid, text : msg},
-	    function(data) {
-	       	alert('Pesan berhasil dikirim');
-	       	$('#comment').val('');
-	       	$('#tid').val('');
-	    }
-);
-}
 
 </script>
 </html>

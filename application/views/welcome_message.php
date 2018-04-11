@@ -23,12 +23,6 @@
 		color: #4F5155;
 	}
 
-	a {
-		color: #003399;
-		background-color: transparent;
-		font-weight: normal;
-	}
-
 	h1 {
 		color: #444;
 		background-color: transparent;
@@ -74,9 +68,21 @@
 </head>
 <body>
 
-	<div class="container">
-		<h1>Welcome to RPTRA Dashboard System</h1>
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="http://bot.sumapala.com/rptra">RPTRA Dashboard System</a>
+	    </div>
+	    <ul class="nav navbar-nav">
+	      <li class="active"><a href="http://bot.sumapala.com/rptra">Home</a></li>
+	      <li><a href="http://bot.sumapala.com/rptra/index.php/welcome/koordinator">List Koordinator</a></li>
+	      <!-- <li><a class='btn btn-warning' href="http://bot.sumapala.com/rptra/index.php/welcome/koordinator">List Jurnal</a></li> 
+	      <li><a href="#">Page 3</a></li>-->
+	    </ul>
+	  </div>
+	</nav>
 
+	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
 				Klik pin dan nama untuk melihat detail

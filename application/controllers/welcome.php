@@ -65,6 +65,12 @@ class Welcome extends CI_Controller {
 		Header("Location: http://bot.sumapala.com/rptra");
 	}
 
+	public function Koordinator()
+	{
+		$data['koordinator'] = $this->mvolunteer->getAllVolunteer();
+		$this->load->view('koordinator', $data);
+	}
+
 	public function getQuestionById($questionId)
 	{
 		header('Access-Control-Allow-Origin: *');
