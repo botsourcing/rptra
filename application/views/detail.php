@@ -188,7 +188,7 @@
     var tid = document.getElementById("tid").value;
     var msg = document.getElementById("comment").value;
     $.get(
-	    "https://api.telegram.org/bot<TOKEN_API>/sendMessage",
+	    "https://api.telegram.org/bot551359175:AAGG6LYJON8m702RygBUXnH5kP_ddZ7qC14/sendMessage",
 	    {chat_id : tid, text : msg},
 	    function(data) {
 	       	alert('Pesan berhasil dikirim');
