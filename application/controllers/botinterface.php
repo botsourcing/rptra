@@ -24,6 +24,25 @@ class Botinterface extends CI_Controller{
     	$data['id'] = $id;
     	$this->load->view('survey',$data);
     }
+
+    public function Thank()
+    {
+    	$data = $this->input->post();
+    	
+    	for ($i=1; $i < count($data); $i++) { 
+    		$survey_item=
+			   array(
+			      'VolunteerTelegram' => $data[0] ,
+			      'QuestionId' => $i,
+			      'Answer' => $data[$i]
+			);
+
+			$this->db->insert('survey', $survey_item);
+    	}
+
+    	$this->load->view('thanksurvey');
+    }
+
     
     
 }

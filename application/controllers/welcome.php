@@ -72,6 +72,25 @@ class Welcome extends CI_Controller {
 		$this->load->view('koordinator', $data);
 	}
 
+	public function GetKoordinatorByArea($area)
+	{
+		$area = urldecode($area);
+		$data = $this->mvolunteer->getKoordinatorByArea($area);
+		$datax = array();
+
+        foreach($data as $r) {
+        	$datax[] = array(
+        		"Name" => $r->KoordinatorName,
+        		"Region" => $r->KoordinatorRegion,
+        		"Telegram" => $r->KoordinatorTelegram
+        	);
+        }
+
+        echo json_encode($datax);
+
+
+	}
+
 	public function getQuestionById($questionId)
 	{
 		header('Access-Control-Allow-Origin: *');

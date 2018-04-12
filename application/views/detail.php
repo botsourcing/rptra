@@ -18,7 +18,7 @@
 
 	body {
 		background-color: #fff;
-		margin: 40px;
+		/*margin: 40px;*/
 		font: 13px/20px normal Helvetica, Arial, sans-serif;
 		color: #4F5155;
 	}
@@ -188,14 +188,14 @@
     var tid = document.getElementById("tid").value;
     var msg = document.getElementById("comment").value;
     $.get(
-	    "https://api.telegram.org/bot446261207:AAGrFMUEoNn__DLerHQa_I7UEeOi7e2wwA4/sendMessage",
+	    "https://api.telegram.org/bot551359175:AAGG6LYJON8m702RygBUXnH5kP_ddZ7qC14/sendMessage",
 	    {chat_id : tid, text : msg},
 	    function(data) {
 	       	alert('Pesan berhasil dikirim');
 	       	$('#comment').val('');
 	       	$('#tid').val('');
 	    }
-);
+	);
 }
 
 </script>

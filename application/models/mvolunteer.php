@@ -44,6 +44,24 @@ class Mvolunteer extends CI_Model
         }
 	}
 
+	function getKoordinatorByArea($area)
+	{
+		$this->db->select('*')
+					->from('koordinator')
+					->where('KoordinatorRegion', $area);
+				 
+		$get = $this->db->get();
+		
+		if($get->num_rows() > 0)
+        {
+            return $get->result();
+        }
+        else
+        {
+            return 0;
+        }
+	}
+
 	function getJurnalById($id)
 	{
 		$this->db->select('*')

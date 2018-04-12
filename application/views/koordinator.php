@@ -7,8 +7,9 @@
 	<link href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css');?>" rel="stylesheet">
 	<script src="<?php echo base_url('assets/bootstrap/js/jQuery-2.1.4.min.js');?>"></script>
 	<script src="<?php echo base_url('assets/bootstrap/js/bootstrap.min.js');?>"></script>
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
-    
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
 
 	<style type="text/css">
 
@@ -18,7 +19,7 @@
 
 	body {
 		background-color: #fff;
-		margin: 40px;
+		/*margin: 40px;*/
 		font: 13px/20px normal Helvetica, Arial, sans-serif;
 		color: #4F5155;
 	}
@@ -80,15 +81,15 @@
 	</nav>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-8">
 				<div class="panel panel-default">
 				    <div class="panel-body">
 
 						<div class="row">
 							<div class="col-md-4"><b>Nama Koordinator</b></div>
 							<div class="col-md-3"><b>Lokasi RPTRA</b></div>
-							<div class="col-md-3"></div>
-							<div class="col-md-3"><b>Aksi</b></div>
+							<div class="col-md-3"><b>Area RPTRA</b></div>
+							<div class="col-md-2"><b>Aksi</b></div>
 						</div>
 						<br>
 
@@ -99,49 +100,41 @@
 								$nama_koordinator=$i->KoordinatorName;
 								$lokasi_rptra=$i->KoordinatorLokasi;
 								$telegram = $i->KoordinatorTelegram;
+								$area = $i->KoordinatorRegion;
 							
 						?>
 
 						<div class="row">
 							<div class="col-md-4"><?php echo $nama_koordinator;?></div>
 							<div class="col-md-3"><?php echo $lokasi_rptra;?></div>
-							<div class="col-md-3"></div>
-							<div class="col-md-3"><?php echo "<a href='DetailAnswer/".$telegram."'>Detail</a>"; ?></div>
+							<div class="col-md-3"><?php echo $area;?></div>
+							<div class="col-md-2"><?php echo "<a href='DetailAnswer/".$telegram."'>Detail</a>"; ?></div>
 						</div>
 
 						<?php endforeach;?>
 					</div>
 				</div>
 			</div>
-			<!-- <div class="col-md-6">
+			<div class="col-md-4">
 				<div class="panel panel-default">
 				    <div class="panel-body">
-
-						<div class="row">
-							<div class="col-md-6"><b>Tanggal Jurnal</b></div>
-							<div class="col-md-6"><b>Isi Jurnal</b></div>
+				    	<div class="form-group">
+						  <label for="sel1">Pilih area yang akan disebar pesan:</label>
+						  <select class="form-control" id="sel1">
+						    <option value="Jakarta Utara">Jakarta Utara</option>
+						    <option value="Jakarta Barat">Jakarta Barat</option>
+						    <option value="Jakarta Pusat">Jakarta Pusat</option>
+						    <option value="Jakarta Timur">Jakarta Timur</option>
+						    <option value="Jakarta Selatan">Jakarta Selatan</option>
+						  </select>
+						  <br>
+						  <label for="textarea1">Isi Pesan:</label>
+						  <textarea class="form-control" rows="5" id="textarea1"></textarea>
 						</div>
-						<br>
-
-
-						<?php
-							foreach($koordinator as $i):
-							
-								$nama_koordinator=$i->KoordinatorName;
-								$lokasi_rptra=$i->KoordinatorLokasi;
-								$telegram = $i->KoordinatorTelegram;
-							
-						?>
-
-						<div class="row">
-							<div class="col-md-6"><?php echo $nama_koordinator;?></div>
-							<div class="col-md-6"><?php echo $lokasi_rptra;?></div>
-						</div>
-
-						<?php endforeach;?>
+						<button class="btn-primary" onclick="Search()">Kirim</button>
 					</div>
 				</div>
-			</div> -->
+			</div>
 		</div>
 
 		
@@ -153,6 +146,34 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	function Search() {
+	    var area = document.getElementById("sel1").value;
+	    var msg = document.getElementById("textarea1").value;
+		$.ajax({
+		    url: "http://bot.sumapala.com/rptra/welcome/GetKoordinatorByArea/" + area,
+		    type: "GET",
+		    dataType: "JSON",
+		    success: function(data) {
+		      if (data[0] === undefined) return;
+		      for (var i = data.length - 1; i >= 0; i--) {
+		      	$.get(
+				    "https://api.telegram.org/bot551359175:AAGG6LYJON8m702RygBUXnH5kP_ddZ7qC14/sendMessage",
+				    {chat_id : data[i].Telegram, text : msg},
+				    function(res) {
+				    	console.log(res);
+				       	console.log(res.result.chat.first_name + ' ' + res.result.chat.last_name);
+				       	$('#textarea1').val('');
+
+				       	$.notify('Berhasil dikirim ke ' + res.result.chat.first_name + ' ' + res.result.chat.last_name, "success");
+				    }
+				);
+		      }
+		      	
+		      
+		    }
+		  });
+	}
 
 </script>
 </html>
