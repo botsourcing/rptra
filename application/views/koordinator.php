@@ -158,7 +158,7 @@
 		      if (data[0] === undefined) return;
 		      for (var i = data.length - 1; i >= 0; i--) {
 		      	$.get(
-				    "https://api.telegram.org/bot551359175:AAGG6LYJON8m702RygBUXnH5kP_ddZ7qC14/sendMessage",
+				    "https://api.telegram.org/bot<TOKEN_API>/sendMessage",
 				    {chat_id : data[i].Telegram, text : msg},
 				    function(res) {
 				    	console.log(res);
